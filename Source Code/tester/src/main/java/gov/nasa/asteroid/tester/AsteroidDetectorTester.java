@@ -1606,8 +1606,29 @@ public void unshuffle(int[] a, int aidx, int n, int n2, int[] tmp)
                     try {
                         String cmd = theReader.readLine();
                         System.out.println("readed: " + cmd);
-                        while (cmd.startsWith("PROGRESS:")) {
-                            detectionProgressListener.updateProgress(Float.parseFloat(cmd.substring("PROGRESS:".length())));
+                        Boolean while_continue = true;
+                        if (cmd != null) {
+                            if (cmd.startsWith("PROGRESS:")) {
+                                while_continue = true;
+                            } else {
+                                while_continue = false;
+                            }
+                        } else {
+                            System.out.println("warning: cmd is null in AsteroidDetectorTester.run");
+                            while_continue = false;
+                        }
+                        while (while_continue) {
+                            if (cmd != null) {
+                                detectionProgressListener.updateProgress(Float.parseFloat(cmd.substring("PROGRESS:".length())));
+                                if (cmd.startsWith("PROGRESS:")) {
+                                    while_continue = true;
+                                } else {
+                                    while_continue = false;
+                                }
+                            } else {
+                                System.out.println("warning: cmd is null in AsteroidDetectorTester.run");
+                                while_continue = false;
+                            }
                             cmd = theReader.readLine();
                             System.out.println("readed: " + cmd);
                         }
@@ -1649,15 +1670,47 @@ public void unshuffle(int[] a, int aidx, int n, int n2, int[] tmp)
         // get response from solution
         String cmd = reader.readLine();
         System.out.println("readed: " + cmd);
+//         System.out.println("blablablablabla");
+        Boolean while_continue = true;
+        if (cmd != null) {
+            if (cmd.startsWith("PROGRESS:")) {
+                while_continue = true;
+            } else {
+                while_continue = false;
+            }
+        } else {
+            System.out.println("warning: cmd is null in AsteroidDetectorTester.run");
+            while_continue = false;
+        }/*
         while (cmd.startsWith("PROGRESS:")) {
             this.detectionProgressListener.updateProgress(Float.parseFloat(cmd.substring("PROGRESS:".length())));
             cmd = reader.readLine();
             System.out.println("readed: " + cmd);
+        }*/
+        while (while_continue) {
+            if (cmd != null) {
+                this.detectionProgressListener.updateProgress(Float.parseFloat(cmd.substring("PROGRESS:".length())));
+                if (cmd.startsWith("PROGRESS:")) {
+                    while_continue = true;
+                } else {
+                    while_continue = false;
+                }
+            } else {
+                System.out.println("warning: cmd is null in AsteroidDetectorTester.run");
+                while_continue = false;
+            }
+            cmd = reader.readLine();
+            System.out.println("readed: " + cmd);
         }
-        
-        
-        int n = Integer.parseInt(cmd);
-        System.out.println("The returned answer num: " + n + " max answer num: " + maxNumberOfAnswer);
+        Integer n = 0;
+        String returned_answer_count_error = "";
+        if (cmd != null) {
+            n = Integer.parseInt(cmd);
+        } else {
+            n = 0;
+            returned_answer_count_error = "(error)";
+        }
+        System.out.println("The returned answer num: " + n + returned_answer_count_error + " max answer num: " + maxNumberOfAnswer);
         ArrayList<Entity> userAns = new ArrayList<Entity>();
         for (int i=0;i<n && i < maxNumberOfAnswer;i++) {
             String s = reader.readLine();
