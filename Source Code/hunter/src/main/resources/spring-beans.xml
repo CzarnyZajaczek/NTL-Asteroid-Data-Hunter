@@ -13,7 +13,7 @@
 	<bean id="neoService" class="gov.nasa.asteroid.hunter.services.impl.NEOServiceImpl">
 		<property name="logger" ref="logger" />
 		<property name="mpCheckerCGIURL"
-			value="http://scully.cfa.harvard.edu/cgi-bin/mpcheck.cgi" />
+			value="http://www.minorplanetcenter.net/cgi-bin/checkmp.cgi" />
 	</bean>
 	<bean id="detectionSessionService"
 		class="gov.nasa.asteroid.hunter.services.impl.DetectionSessionServiceImpl">
