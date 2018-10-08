@@ -67,19 +67,40 @@ void doTrain(AsteroidDetector& my) {
 		if (v == 1)
 			break;
 	}
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	// save the rf data
 	my.saveRF();
 }
 
+void exampleFunction(AsteroidDetector& my) {
+  int testvariable;
+  testvariable=0;
+}
+
 void doTest(AsteroidDetector& my) {
+//   fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+//   fprintf(stderr, "%d", __LINE__);
+//   fprintf(stderr, "%s", "\n");
+  exampleFunction(my);
 	char buf[65536];
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
     while (true)
     {
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 
         int W,H,N;
         string ID;
 	
         if (cin.getline(buf, 65536).eof()) {
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
         	break;
         }
 	if (buf[0] == '=') {
@@ -97,6 +118,9 @@ void doTest(AsteroidDetector& my) {
 	cout <<"PROGRESS:0.2"<< endl;
         cerr << "S : W=" << W << " H=" << H << endl;
 	double progress = 0.2;
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
         for (int f=0;f<4;f++)
         {
             image[f].resize(W*H);
@@ -123,20 +147,45 @@ void doTest(AsteroidDetector& my) {
           cout.flush();
         }
 
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	cout <<"PROGRESS:0.7"<<endl;
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
         cin.getline(buf, 65536);
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
         int v = my.testingData(ID, W, H, image[0], header[0], wcs[0],
                                          image[1], header[1], wcs[1],
                                          image[2], header[2], wcs[2],
                                          image[3], header[3], wcs[3]);
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
       cout <<"PROGRESS:0.8"<<endl;
         cout << v << endl;
         cout.flush();
 	
     }
 
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
     vector<string> res = my.getAnswer();
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
     cout << res.size() << endl;
+  fprintf(stderr, "%s", "algo/linux/main.cpp::doTest() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "  res.size() ");
+  int res_size;
+  res_size = res.size();
+  fprintf(stderr, "%d", res_size);
+  fprintf(stderr, "%s", "\n");
     for (int i=0; i < res.size(); i++)
         cout << res[i] << endl;
     cout.flush();

@@ -838,7 +838,13 @@ struct Series {
 	double time_delta;
 	
 	void setup() {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::Series->setup() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		time_delta = (frame_head[FRAMES-1].double_value("MJD") - frame_head[0].double_value("MJD")) / (FRAMES-1);
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::Series->setup() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		for (int f=0; f<FRAMES; f++) {
 			const FitsHeader& head = frame_head[f];
 			Vec2 ref_pix = Vec2(head.double_value("CRPIX2"), head.double_value("CRPIX1"));
@@ -851,6 +857,9 @@ struct Series {
 			darkToStar[f] = sphereToDark[0] * darkToSphere[f];
 			starToDark[f] = darkToStar[f].inverse();
 		}
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::Series->setup() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	}
 };
 
@@ -1245,7 +1254,13 @@ void computeUnglow(Series* series, FullImageSet frames) {
 }
 
 void computeLayers(Series* series, FullImageSet unglow, FullImage star, FullImage dark, FullImageSet transformed, FullImageSet mov) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	const float SATURATION = 15000;
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	for (int f=0; f<FRAMES; f++) {
 		float frame_bias = series->frame_bias[f];
 		// cerr << "frame_bias = " << frame_bias << endl;
@@ -1258,41 +1273,175 @@ void computeLayers(Series* series, FullImageSet unglow, FullImage star, FullImag
 			}
 		}
 	}
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	FullImage tmp;
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+  
+  int debug_enabled = 1;
+  int debug1_enabled = 1;
+  
 	for (int f=0; f<FRAMES; f++) {
 		for (int i=0; i<H; i++) {
 			for (int j=0; j<W; j++) {
+        if (debug1_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+          
+        }
 				transformed[f].at(i,j) = unglow[f].at(i,j);
+        if (debug1_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+          
+        }
+        debug1_enabled = 0;
 			}
 		}
+    if (debug_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+    }
+		
 		series->darkToStar[f].transform(transformed[f], tmp);
+    if (debug_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+    }
+    debug_enabled = 0;
 	}
-	for (int i=0; i<H; i++) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+  
+  debug_enabled = 1;
+  debug1_enabled = 1;
+  int debug1_count = 0;
+  int debug2_enabled = 1;
+  int debug2_count = 0;
+  int debug3_enabled = 1;
+  int debug3_count = 0;
+  int debug4_enabled = 1;
+  int debug4_count = 0;
+  int debug5_enabled = 1;
+  int debug5_count = 0;
+  int debug6_enabled = 1;
+  int debug6_count = 0;
+  int debug7_enabled = 1;
+  int debug7_count = 0;
+  
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", " $H: ");
+  fprintf(stderr, "%d", H);
+  fprintf(stderr, "%s", "\n");
+	for (int i=0; i<H; i++) {//this for fails
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  debug1_count++;
+  fprintf(stderr, "%s", " for{} iteration: ");
+  fprintf(stderr, "%d", debug1_count);
+  fprintf(stderr, "%s", " $i: ");
+  fprintf(stderr, "%d", i);
+  fprintf(stderr, "%s", "\n");
 		for (int j=0; j<W; j++) {
+      if (debug2_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+      }
+//   fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+//   fprintf(stderr, "%d", __LINE__);
+//   debug2_count++;
+//   fprintf(stderr, "%s", " for{}for{} iteration: ");
+//   fprintf(stderr, "%d", debug2_count);
+//   fprintf(stderr, "%s", "\n");
 			float buf[FRAMES];
 			int p = 0;
 			for (int f=0; f<FRAMES; f++) {
+        if (debug3_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
 				float x = transformed[f].at(i,j);
 				if (x==x)
 					buf[p++] = x;
+        if (debug3_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
+        debug3_enabled = 0;
 			}
 			float r;
-			if (p==0)
+			if (p==0) {
+        
+        if (debug4_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
 				r = 0;
-			else {
+        debug4_enabled = 0;
+      } else {
+        if (debug5_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
 				int k = (p-1)/2;
 				std::nth_element(&buf[0], &buf[k], &buf[p]);
 				if ((p&1)==0) {
+        if (debug6_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
 					float x = buf[k];
 					float y = *std::min_element(&buf[k+1], &buf[p]);
 					r = x*y < 0 ? 0 : std::abs(x)<std::abs(y) ? x : y;
+        if (debug6_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
+        debug6_enabled = 0;
 				} else {
+        if (debug7_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
 					r = buf[k];
+          debug7_enabled = 0;
 				}
+        if (debug5_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+        }
+				debug5_enabled = 0;
 			}
 			star.at(i,j) = r;
+      if (debug2_enabled==1) {
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
+      }
+      debug2_enabled=0;
 		}
 	}
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	for (int f=0; f<FRAMES; f++) {
 		for (int i=0; i<H; i++) {
 			for (int j=0; j<W; j++) {
@@ -1301,6 +1450,9 @@ void computeLayers(Series* series, FullImageSet unglow, FullImage star, FullImag
 		}
 		series->starToDark[f].transform(transformed[f], tmp);
 	}
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	for (int i=0; i<H; i++) {
 		for (int j=0; j<W; j++) {
 			float buf[FRAMES];
@@ -1330,6 +1482,9 @@ void computeLayers(Series* series, FullImageSet unglow, FullImage star, FullImag
 			}
 		}
 	}
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::computeLayers() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 }
 
 template<int n>
@@ -1551,22 +1706,55 @@ VF extractFeatures(Detection &detection, Series *series, FullImageSet &Z2) {
 
 VVF extractAllFeatures(Series* series, FullImageSet frames) {
 	double startTime = getTime();
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	FullImageSet z;
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	computeUnglow(series, frames); 
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	// cerr << "Time Passed Unglow: " << (getTime() - startTime) << endl;
 	FullImage star, dark;
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	FullImageSet mov;
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	FullImageSet tstar;
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	computeLayers(series, frames, star, dark, tstar, mov);
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	// cerr << "Time Passed Layers: " << (getTime() - startTime) << endl;
 	computeFiltered(series, tstar, dark, mov, z);
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	// cerr << "Time Passed Filtered: " << (getTime() - startTime) << endl;
 	FullImageSet Z2;
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	vector<Detection> detections = detectBright(series, z, Z2);
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	// cerr << "Time Passed Bright: " << (getTime() - startTime) << endl;
 	
 	VVF rv;
 	for (auto &detection : detections) rv.PB(extractFeatures(detection, series, Z2));
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::extractAllFeatures() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 	return rv;
 }
 
@@ -1700,7 +1888,7 @@ struct AsteroidDetector {
 			vector<string> detections) {
 			
 		DB(trainCall);
-		cerr << "AsteroidDetector: time = " << getTime() - t0 << endl;
+		cerr << "1:AsteroidDetector: time = " << getTime() - t0 << endl;
 		FullImageSet frames;
 		Series* series = new Series(); //TODO: memory leak?
 		series->id = "training";
@@ -1747,10 +1935,16 @@ struct AsteroidDetector {
 			
 		DB(testCall);
 		
-		cerr << "AsteroidDetector: time = " << getTime() - t0 << endl;
+		cerr << "2:AsteroidDetector: time = " << getTime() - t0 << endl;
 		testIDs.PB(id);
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::testingData() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		FullImageSet frames;
 		Series* series = new Series(); //TODO: memory leak?
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::testingData() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		series->id = id;
 		assert(width == W);
 		assert(height == H);
@@ -1764,13 +1958,25 @@ struct AsteroidDetector {
 				series->frame_head[f].add_line(line);
 			}
 		}
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::testingData() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		series->setup();
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::testingData() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		
 		VVF features = extractAllFeatures(series, frames);
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::testingData() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		for (VF &v : features) {
 			v[0] += testCall;
 			testFeatures.PB(v);
 		}
+  fprintf(stderr, "%s", "algo/linux/alg1_psyho.h::testingData() line ");
+  fprintf(stderr, "%d", __LINE__);
+  fprintf(stderr, "%s", "\n");
 		
 		testCall++;
 		
@@ -1865,7 +2071,7 @@ struct AsteroidDetector {
 	}
 
 	vector<string> getAnswer() {
-		cerr << "AsteroidDetector: time = " << getTime() - t0 << endl;
+		cerr << "3:AsteroidDetector: time = " << getTime() - t0 << endl;
 		double xtime;
 		RandomForestConfig cfg;
 		cfg.featuresIgnored = 11;
@@ -1941,7 +2147,7 @@ struct AsteroidDetector {
 	}
 	
 	vector<string> getAnswerNEO() {
-		cerr << "AsteroidDetector: time = " << getTime() - t0 << endl;
+		cerr << "4:AsteroidDetector: time = " << getTime() - t0 << endl;
 		
 		RandomForestConfig cfg;
 		cfg.featuresIgnored = 11;
